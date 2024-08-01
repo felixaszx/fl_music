@@ -43,14 +43,11 @@ int stream_callback(const void* input, void* output, unsigned long frame_count,
     factor = std::pow(10, factor);
     factor = std::min(factor, 1 / sound->peak_);
 
-    for (size_t f = 0; f < frame_count; f++)
+    for (size_t f = 0; f < frame_count * sound->info_.channels; f++)
     {
         *out = factor * sound->buffer_[sound->curr_p_];
         out++;
-        *out = factor * sound->buffer_[sound->curr_p_ + 1];
-        out++;
-
-        sound->curr_p_ += 2;
+        sound->curr_p_ ++;
     }
 
     return 0;
@@ -217,21 +214,19 @@ int wmain(int argc, wchar_t** argv)
             std::string peak_str = music_file->properties()["REPLAYGAIN_TRACK_PEAK"][0].to8Bit(true);
             sound.peak_ = std::stod(peak_str);
         }
-
-        buffer.append("\n");
-        buffer.append("\n");
         buffer.append("Replay Gain applied with ");
         buffer.append(gain_str.c_str());
         buffer.append(" dB. Peak at ");
         buffer.append(peak_str.c_str());
-        buffer.append(".\n");
+        buffer.append("\n");
     }
     else
     {
-        buffer.append("\n");
-        buffer.append("\n");
-        buffer.append("Replay Gain not applied.");
+        buffer.append("Replay Gain not applied\n");
     }
+    buffer.append("Sample Rate: ");
+    buffer.append(std::to_string(sound.info_.samplerate).c_str());
+    buffer.append("Hz\n");
 
     fle::TextDisplay music_details(0, 0, 1_px, 1_px);
     music_details.hide_cursor();
