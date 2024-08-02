@@ -47,7 +47,7 @@ int stream_callback(const void* input, void* output, unsigned long frame_count,
     {
         *out = factor * sound->buffer_[sound->curr_p_];
         out++;
-        sound->curr_p_ ++;
+        sound->curr_p_++;
     }
 
     return 0;
@@ -211,7 +211,7 @@ int wmain(int argc, wchar_t** argv)
 
         if (music_file->properties().contains("REPLAYGAIN_TRACK_PEAK"))
         {
-            std::string peak_str = music_file->properties()["REPLAYGAIN_TRACK_PEAK"][0].to8Bit(true);
+            peak_str = music_file->properties()["REPLAYGAIN_TRACK_PEAK"][0].to8Bit(true);
             sound.peak_ = std::stod(peak_str);
         }
         buffer.append("Replay Gain applied with ");
