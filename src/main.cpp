@@ -173,6 +173,7 @@ int wmain(int argc, wchar_t** argv)
             {
                 down_scaled->draw(x, y, w, h);
                 fl_rectf(x, y + h - 4, w, 3, fle::Color(0x005499));
+                fl_rectf(x, y + h - 7, w, 3, fle::Color(0x26A0DA));
             },
             0, 0, 0, 0);
         Fl::set_boxtype(
