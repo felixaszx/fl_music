@@ -171,9 +171,8 @@ int wmain(int argc, wchar_t** argv)
             fle::box(fle::FREE_BOX),
             [](int x, int y, int w, int h, Fl_Color c)
             {
-                down_scaled->draw(x, y, w, h);
-                fl_rectf(x, y + h - 4, w, 3, fle::Color(0x005499));
-                fl_rectf(x, y + h - 7, w, 3, fle::Color(0x26A0DA));
+                down_scaled->draw(x, y, w, h); 
+                fl_rectf(x + w, y, 2, h, fle::Color(0x26A0DA));
             },
             0, 0, 0, 0);
         Fl::set_boxtype(
