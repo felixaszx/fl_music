@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${command:cmake.getLaunchTargetPath}",
             "args": [
-                "Symphony 9- 3 Adagio molto e cantabile.flac"
+                "無路矢.flac"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

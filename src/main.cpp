@@ -45,9 +45,17 @@ int stream_callback(const void* input, void* output, unsigned long frame_count,
 
     for (size_t f = 0; f < frame_count * sound->info_.channels; f++)
     {
-        *out = factor * sound->buffer_[sound->curr_p_];
-        out++;
-        sound->curr_p_++;
+        if (sound->curr_p_ >= sound->buffer_.size())
+        {
+            *out = 0;
+            out++;
+        }
+        else
+        {
+            *out = factor * sound->buffer_[sound->curr_p_];
+            out++;
+            sound->curr_p_++;
+        }
     }
 
     return 0;
@@ -66,7 +74,6 @@ int wmain(int argc, wchar_t** argv)
 
     fle::Global::visible_focus(false);
     fle::Global::visual(FL_RGB);
-    fle::Ext<>::scale_factor_ = 1.25;
     fle::InitializeWin11Style();
     fle::DoubleWindow window(400_px, 400_px);
     fle::Flow main(0_px, 0_px, 400_px, 400_px);
@@ -76,7 +83,7 @@ int wmain(int argc, wchar_t** argv)
     main.rule(top_bar, "^<=>");
     fle::RadioButton player_btn(0_px, 0_px, 1_px, 1_px);
     player_btn.label("Player");
-    player_btn.labelsize(player_btn.labelsize() * fle::Ext<>::scale_factor_);
+    player_btn.labelsize(player_btn.labelsize());
     player_btn.box(fle::box(fle::WIN11_BTN_UP));
     player_btn.down_box(fle::box(fle::WIN11_BTN_DOWN));
     fle::RadioButton details_btn(0_px, 0_px, 1_px, 1_px);
@@ -90,7 +97,7 @@ int wmain(int argc, wchar_t** argv)
     top_bar.rule(details_btn, "=v=>");
 
     fle::Button pause_btn(0_px, 0_px, 30_px, 30_px);
-    pause_btn.labelsize(pause_btn.labelsize() * fle::Ext<>::scale_factor_);
+    pause_btn.labelsize(pause_btn.labelsize());
     pause_btn.box(fle::box(fle::WIN11_BTN_DOWN));
     pause_btn.down_box(fle::box(fle::WIN11_BTN_UP));
     pause_btn.type(FL_TOGGLE_BUTTON);
@@ -233,7 +240,7 @@ int wmain(int argc, wchar_t** argv)
     music_details.scrollbar_width(0);
     music_details.selection_color(fle::Color(0x0078D4));
     music_details.wrap_mode(fle::TextDisplay::WRAP_AT_BOUNDS, 0);
-    music_details.textsize(music_details.textsize() * fle::Ext<>::scale_factor_ * 1.2);
+    music_details.textsize(music_details.textsize());
     music_details.box(fle::box(fle::WIN11_INPUT_ACTIVE));
     music_details.buffer(buffer);
     details.rule(music_details, "=<=^");

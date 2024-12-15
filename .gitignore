@@ -15,6 +15,7 @@ build/*.obj
 *.so
 *.dylib
 *.dll
+*.flac
 
 # Fortran module files
 *.mod
