@@ -172,17 +172,12 @@ int wmain(int argc, wchar_t** argv)
             [](int x, int y, int w, int h, Fl_Color c)
             {
                 down_scaled->draw(x, y, w, h);
-                fl_rect(x + w, y, 2, h, fle::Color(0x005499));
+                fl_rectf(x, y + h - 4, w, 3, fle::Color(0x005499));
             },
             0, 0, 0, 0);
         Fl::set_boxtype(
             fle::box(fle::FREE_BOX + 1),
-            [](int x, int y, int w, int h, Fl_Color c)
-            {
-                down_scaled_bg->draw(x, y, w, h);
-                fl_rect(x + w, y, 2, h, fle::Color(0x005499));
-            },
-            0, 0, 0, 0);
+            [](int x, int y, int w, int h, Fl_Color c) { down_scaled_bg->draw(x, y, w, h); }, 0, 0, 0, 0);
 
         progress_control.slider(fle::box(fle::FREE_BOX));
         progress_control.box(fle::box(fle::FREE_BOX + 1));
